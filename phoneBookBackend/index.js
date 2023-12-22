@@ -22,13 +22,13 @@ app.get('/api/persons', (request, response) => {
   })
 })
 app.get('/info',(request,response)=>{
-  const personLength = Person 
-                                              .find({}) 
-                                              .then( id =>{
-                                                          const IDlength = id.length
-                                                          let day = new Date()
-                                                          response  
-                                                          .send(`<p>Phonebook has info of ${IDlength} people</p><br/><p>${day.toString()}</p>`)
+  Person 
+             .find({}) 
+           .then( id =>{
+          const IDlength = id.length
+         let day = new Date()
+       response  
+      .send(`<p>Phonebook has info of ${IDlength} people</p><br/><p>${day.toString()}</p>`)
   }
    
   )
