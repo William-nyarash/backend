@@ -53,14 +53,10 @@ app.delete('/api/persons/:id',(request,response ,next)=>{
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
-  const body = request.body
+  const {name, number} = request.body
 
-  const person = {
-    name: body.name,
-    number: body.number,
-  }
-
-  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+  Person.findByIdAndUpdate(request.params.id, 
+      {name, number}, { new: true,  runValidators: true, context: 'qeury' })
     .then(updatedNote => {
       response.json(updatedNote)
     })
@@ -69,21 +65,23 @@ app.put('/api/persons/:id', (request, response, next) => {
 
 
 app.post('/api/persons',(request,response)=>{
+    const {name, number}= request.body
     const body = request.body
     const result  = response.body
-          
-              if(!body.name){
+    if (body.content === undefined) {
+      return response.status(400).json({ error: 'content missing' })
+    } else  if(!name){
                 return response.status(404).json({
                     error: 'name missing'
                 })
-            } else if(!body.number){
+            } else if(!number){
                 return response.status(404).json(
                   {error: 'the number field is empty'}
                   )}
   
     const person =new Person ({
-        name : body.name,
-        number: body.number,
+        name : name,
+        number: number,
 
     })
     person.save().then(
