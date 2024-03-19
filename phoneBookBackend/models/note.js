@@ -6,6 +6,7 @@ const url = process.env.MONGODB_URI
 
 mongoose.connect(url)
         .then( res=>{
+          'the server is up'
         })
         .catch((error)=>{
           console.log("error:",error)
